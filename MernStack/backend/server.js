@@ -1,7 +1,10 @@
 // entry file for backend application 
+
 require('dotenv').config(); // invoke config() - going to attach those envir vars to the process object
+
 // register the express app
 const express = require('express');
+const mongoose = require('mongoose');
 
 const workoutRoutes = require('./routes/workouts');
  
@@ -19,10 +22,15 @@ app.use((req,res,next) =>{ // logs out the requests coming in
 // routes
 app.use('/api/workouts', workoutRoutes); //  when this reuqest is fired, use routes in workoutRoutes
 
-// listen for requests
-app.listen(process.env.PORT, () => {
-    console.log('PORT from .env:', process.env.PORT);
-    console.log('listening on port 4000');
-});
+// connect to db
+mongoose.connect(process.env.MONGO_URI) // asynchronous so it takes bit of time, it returns a promise
+ .then(() =>{
+    // listen for requests once connected to db
+    app.listen(process.env.PORT, () => {
+        console.log('connected to db & listening on port');
+    });
+ })
+ .catch((err)=>{
+    console.log(err);
+ })
 
-process.env
