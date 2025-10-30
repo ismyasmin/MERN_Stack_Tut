@@ -3,6 +3,7 @@ import {useEffect, useState} from 'react'
 
 // components
 import WorkoutDetails from '../components/WorkoutDetails'
+import WorkoutForm from '../components/WorkoutForm'
 
 
 const Home = () => {
@@ -33,6 +34,7 @@ const Home = () => {
                     <WorkoutDetails key={workout._id} workout={workout}/> // pass in as a prop the actual workout
                 ))} {/*normal parentheses not curly braces because returning template*/}
             </div>
+            <WorkoutForm />
         </div>
     )
 }
